@@ -1,7 +1,15 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
+/**
+ * Course- CSC 309: Software Engineering I
+ * Professor Bruno Da Silva
+ * Student- Jaipreet Hundal
+ * Practicing and Performing Unit Testing with TDD(Test-Driven-Development)
+ **/
 public class GreetingKota {
     public String greet(String... name){
+        /**Function will return the proper greetings based on the format of the names given**/
         String greeting = "";
         String extra = "";
         boolean flagged = false;
@@ -48,6 +56,7 @@ public class GreetingKota {
     }
 
     private boolean allUpper(String str){
+        /**Check if a given name is all Uppercase**/
         for(int i = 0; i < str.length(); i++){
             if(!Character.isUpperCase(str.charAt(i))){
                 return false;
@@ -57,11 +66,12 @@ public class GreetingKota {
     }
 
     private ArrayList<String> lowerCount(ArrayList<String> names){
+        /**Check if there are exactly 2 words that are not all Uppercase**/
         int count = 0;
         ArrayList<String> lowers = new ArrayList<>();
-        for(int i = 0; i < names.size(); i++){
-            if(!allUpper(names.get(i)) && count <= 2){
-                lowers.add(names.get(i));
+        for(String name : names){
+            if(!allUpper(name) && count <= 2){
+                lowers.add(name);
                 count++;
             }
         }
@@ -71,19 +81,18 @@ public class GreetingKota {
         return lowers;
     }
 
-    private ArrayList<String> splitCommas(String... name){
+    private ArrayList<String> splitCommas(String... names){
+        /**Split special format entries, specified in the greet7 and greet8 testcases, into separate names**/
         ArrayList<String> strs = new ArrayList<>();
-        for(int i = 0; i < name.length; i++){
-            if(name[i].contains("\""))
-                strs.add(name[i].substring(1, name[i].length() - 1));
-            else if(name[i].contains(",")){
-                String[] temp = name[i].split(", ");
-                for(String t : temp){
-                    strs.add(t);
-                }
+        for(String name : names){
+            if(name.contains("\""))
+                strs.add(name.substring(1, name.length() - 1));
+            else if(name.contains(",")){
+                String[] temp = name.split(", ");
+                Collections.addAll(strs, temp);
             }
             else{
-                strs.add(name[i]);
+                strs.add(name);
             }
         }
         return strs;
